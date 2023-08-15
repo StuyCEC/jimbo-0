@@ -1,0 +1,69 @@
+jimbo-0 SPEC SHEET
+
+Aim:
+	A simple 8-bit computer meant to be implemented in TTL hardware.
+	Meant to run simple demo programs.
+
+Registers:
+	* A Register
+	* B Register
+	* C Register - Can also represent an io device
+	* Flags Register
+	* Memory Register
+	
+	0x00: A Register
+	0x01: B Register
+	0x10: C Register
+	0x11: Flags Register
+
+Memory:
+	* 10-bit memory address width 
+		-11th bit used as a ROM ENABLE signal
+	* 1024B ROM memory 0x000 - 0x3FF
+	* 1024B RAM memory 0x400 - 0xFFF
+		-16B stack 0xFF0 - 0xFFF
+		-stack ptr 0xFEE - 0xFEF
+		-gp ram    0x400 - 0xFED
+	* 10-bit memory register
+
+ALU:
+	* Addition, Subtraction
+	* AND, OR, NOT Boolean operations
+	* SHIFT LEFT, SHIFT RIGHT operations
+	* FLAGS: CARRY, BORROW, ZERO
+
+Display:
+	* Unsigned, Signed (2's compliment) and Floating point modes
+	* 8 seven-segment LED displays
+	* bytes can be shifted into the display
+
+Instructions:
+	XXXXX-YY-Z
+	* X: Instruction Word
+	* Y: Register
+	* Z: Option
+	
+	0x00: MOV   (R1) (R2 or imm8)  	: R1 = R2 or imm8
+	0x01: LDR   (R1) (MR or imm16) 	: R1 = *MR or *imm16
+	0x02: STR   (R1) (MR or imm16)	: *MR or *imm16 = R1
+	0x03: PSH   (R1) (__ or imm8)	: *SP = R1 or imm8; SP++
+	0x04: POP   (R1) 		: R1 = *SP; SP--
+	0x05: ADD F (R1) (R2 or imm8)   : R1 += R2 or imm8
+	0x06: ADC F (R1) (R2 or imm8)   : R1 += (R2 or imm8) + Carry
+	0x07: SUB F (R1) (R2 or imm8)   : R1 -= R2 or imm8
+	0x08: SBB F (R1) (R2 or imm8)   : R1 -= (R2 or imm8) - Borrow
+	0x09: SHL   (R1) (R2 or imm8)   : R1 << (R2 or imm8) (imm8 <= 8)
+	0x0A: SHR   (R1) (R2 or imm8)   : R1 >> (R2 or imm8) (imm8 <= 8)
+	0x0B: AND F (R1) (R2 or imm8)   : R1 &= (R2 or imm8)
+	0x0C: OR  F (R1) (R2 or imm8)   : R1 |= (R2 or imm8)
+	0x0D: NOT F (R1)                : R1 = ~R1
+	0x0E: JMP        (MR or imm16)  : PC = *MR or imm16
+	0x0F: JNZ        (MR or imm16)  : if (ZERO == 1): PC = *MR or imm16
+	0x10: JNC 	 (MR or imm16)  : if (CARRY == 1): PC = *MR or imm16
+	0x11: JNB        (MR or imm16)  : if (BORROW == 1): PC = *MR or imm16
+	0x12: OUT   (R1) (__ or imm8)  	: OUT << 8; OUT += R1 or imm8
+	0x13: COT   			: OUT = 0x00
+	0x14: HLT                       : HALT CLOCK
+	0x15: NOP			: NO OPERATION
+
+	* F: Instruction writes to the flags register
