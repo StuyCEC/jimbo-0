@@ -41,7 +41,7 @@ Instructions:
 	XXXXX-YY-Z
 	* X: Instruction Word
 	* Y: Register
-	* Z: Option
+	* Z: Option/Mode
 	
 	0x00: MOV   (R1) (R2 or imm8)  	: R1 = R2 or imm8
 	0x01: LDR   (R1) (MR or imm16) 	: R1 = *MR or *imm16
@@ -64,6 +64,8 @@ Instructions:
 	0x12: OUT   (R1) (__ or imm8)  	: OUT << 8; OUT += R1 or imm8
 	0x13: COT   			: OUT = 0x00
 	0x14: HLT                       : HALT CLOCK
-	0x15: NOP			: NO OPERATION
+	0x15: MIL   (R1) (__ or imm8)   : MR (LOWER 8 BITS) = R1 or imm8
+  0x16: MIH   (R1) (__ or imm8)   : MR (HIGHER 2 BITS) = R1 or imm8
+  0x17: NOP                       : NO OPERATION
 
 	* F: Instruction writes to the flags register
