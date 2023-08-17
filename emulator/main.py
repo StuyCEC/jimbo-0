@@ -1,10 +1,7 @@
 class CPU():
     def __init__(self, rompath: str, debug: bool):
         #Registers
-        self.A = 0
-        self.B = 0
-        self.C = 0
-        self.M = 0
+        self.REG = [0] * 4
 
         #Flags
         self.ZERO = False
@@ -47,9 +44,13 @@ class CPU():
         self.PC += 1
         self.PC %= 0xFFF
 
+    def check_reg(self, register: int) -> bool:
+        if reg > -1 and reg < 4:
+            return True
+        return False
 
 if __name__ == "__main__":
     pass
-        
+
 
 
