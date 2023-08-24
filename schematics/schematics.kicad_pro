@@ -471,6 +471,22 @@
     [
       "9826b01a-7fe5-458a-9e88-dd6568b3458a",
       ""
+    ],
+    [
+      "a8126ee3-6667-464b-a028-49075fbd5d0d",
+      "A Register"
+    ],
+    [
+      "dc8b767c-7320-4f04-ac46-c5e0c194bbeb",
+      "B Register"
+    ],
+    [
+      "ebdab6f3-bc72-4ed6-8f76-825fe27af53a",
+      "C Register"
+    ],
+    [
+      "440494ae-54f5-49b0-83e5-df2520eff879",
+      "ALU"
     ]
   ],
   "text_variables": {}
