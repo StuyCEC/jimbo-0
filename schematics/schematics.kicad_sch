@@ -93,6 +93,23 @@
     )
   )
 
+  (sheet (at 85.09 38.1) (size 12.7 3.81) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 4f9aa6b6-ab1c-41dc-a084-bd0aab71692d)
+    (property "Sheetname" "Program Counter" (at 85.09 37.3884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "PC.kicad_sch" (at 85.09 42.4946 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "schematics"
+        (path "/9826b01a-7fe5-458a-9e88-dd6568b3458a" (page "9"))
+      )
+    )
+  )
+
   (sheet (at 143.51 96.52) (size 25.4 50.8) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))

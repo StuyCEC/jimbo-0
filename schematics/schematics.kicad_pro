@@ -499,6 +499,10 @@
     [
       "aa56bbcb-d0e8-463b-b00a-59791ed4c30a",
       "Clock"
+    ],
+    [
+      "4f9aa6b6-ab1c-41dc-a084-bd0aab71692d",
+      "Program Counter"
     ]
   ],
   "text_variables": {}
