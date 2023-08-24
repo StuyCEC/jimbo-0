@@ -487,6 +487,18 @@
     [
       "440494ae-54f5-49b0-83e5-df2520eff879",
       "ALU"
+    ],
+    [
+      "f87368a9-5ceb-4547-ace9-1a0e90f5afd7",
+      "F Register"
+    ],
+    [
+      "8a4c29ca-f392-43b7-891a-ce6e941c077d",
+      "M Register"
+    ],
+    [
+      "aa56bbcb-d0e8-463b-b00a-59791ed4c30a",
+      "Clock"
     ]
   ],
   "text_variables": {}
