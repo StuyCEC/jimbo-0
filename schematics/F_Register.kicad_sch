@@ -447,7 +447,7 @@
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 987e0e7f-126e-40a2-a2b6-b388cbe0cab3)
   )
-  (hierarchical_label "CLK" (shape input) (at 115.57 74.93 180) (fields_autoplaced)
+  (hierarchical_label "~{CLK}" (shape input) (at 115.57 74.93 180) (fields_autoplaced)
     (effects (font (size 1.27 1.27)) (justify right))
     (uuid 9ad30e15-9faf-4274-9fae-0048d3224ca3)
   )

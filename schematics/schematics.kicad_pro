@@ -503,6 +503,10 @@
     [
       "4f9aa6b6-ab1c-41dc-a084-bd0aab71692d",
       "Program Counter"
+    ],
+    [
+      "e7bc9d5d-a461-4eb1-b295-b86ebe873483",
+      "I Register"
     ]
   ],
   "text_variables": {}
