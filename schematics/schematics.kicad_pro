@@ -506,7 +506,11 @@
     ],
     [
       "e7bc9d5d-a461-4eb1-b295-b86ebe873483",
-      "I Register"
+      "I Register + Control"
+    ],
+    [
+      "23a8ffb7-d836-4bb4-997f-7a8e87df8109",
+      "RAM"
     ]
   ],
   "text_variables": {}
