@@ -511,6 +511,10 @@
     [
       "23a8ffb7-d836-4bb4-997f-7a8e87df8109",
       "RAM"
+    ],
+    [
+      "da8955e6-617a-4507-bd1b-b1b020d72025",
+      "Control ROM"
     ]
   ],
   "text_variables": {}
