@@ -1351,6 +1351,23 @@
     (uuid ff24427a-af20-4c44-9d05-c34d0c6923b7)
   )
 
+  (sheet (at 300.99 152.4) (size 25.4 26.67) (fields_autoplaced)
+    (stroke (width 0.1524) (type solid))
+    (fill (color 0 0 0 0.0000))
+    (uuid 16429ad1-bfb4-4eb6-b0b0-3a79a4f6e338)
+    (property "Sheetname" "Output" (at 300.99 151.6884 0)
+      (effects (font (size 1.27 1.27)) (justify left bottom))
+    )
+    (property "Sheetfile" "Out.kicad_sch" (at 300.99 179.6546 0)
+      (effects (font (size 1.27 1.27)) (justify left top))
+    )
+    (instances
+      (project "schematics"
+        (path "/9826b01a-7fe5-458a-9e88-dd6568b3458a" (page "13"))
+      )
+    )
+  )
+
   (sheet (at 241.3 245.11) (size 25.4 38.1) (fields_autoplaced)
     (stroke (width 0.1524) (type solid))
     (fill (color 0 0 0 0.0000))
