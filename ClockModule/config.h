@@ -1,4 +1,4 @@
-//Micro SD
+ //Micro SD
 #define SD_CS 10
 
 //CLOCK PIN

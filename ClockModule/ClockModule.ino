@@ -39,7 +39,7 @@ bool buttonEdge(byte index) {
 char MENU_CONTENT[3][4][25] = {
   {"Load Program", ">Slot: 0", " Load", " Name"},
   {"Clock Options", ">Freq:  1  Hz", " Run", " Step"},
-  {"Options", ">CROMs:", " None", " None"},
+  {"Options", ">CROMs: 1", " Probe RAM", " None"},
 };
 
 byte CURRENT_MENU = 0;
@@ -159,7 +159,14 @@ void runClock() {
 bool CROM_STATE = LOW;
 void toggleCROM() {
   CROM_STATE = !CROM_STATE;
+  if (CROM_STATE == LOW) {
+    MENU_CONTENT[2][1][8] = '1';
+  }
+  else {
+    MENU_CONTENT[2][1][8] = '0';
+  }
   digitalWrite(ROM_OE, CROM_STATE);
+  print_menu_content();
 }
 
 //RAM functions
@@ -183,13 +190,12 @@ void setData(byte data) {
 void loadRAM() {
   //Clear OLED;
   oled.clear();
-  //Disable Clock
   
   //Clear shift registers
   setAddress(0);
   setData(0);
 
-  //Disable control logic ROM
+  //Disable control logic ROM, which also resets the PC and Step counter
   digitalWrite(ROM_OE, HIGH);
   
   //Prepare RAM for writing
@@ -198,7 +204,7 @@ void loadRAM() {
 
   //Open File
   byte buf;
-  char file_buf[2];
+  char file_buf[3];
   for (byte i=0; i<2; i++) {
     file_buf[i] = FILE_PATHS[CURRENT_FILE][i];
   }
@@ -213,7 +219,7 @@ void loadRAM() {
   //Flush out name string
   for (byte i=0; i<16; i++) {
     UINT nr;
-    PF.readFile(buf, 1, &nr);
+    PF.readFile(&buf, 1, &nr);
     if (nr == 0) {
       oled.println("Slot corrupted!");
       oled.print("Press SELECT to exit!");
@@ -224,10 +230,14 @@ void loadRAM() {
   uint16_t addr = 0;
   while (addr < 2048) {
     UINT nr;
-    PF.readFile(buf, 1, &nr);
+    PF.readFile(&buf, 1, &nr);
     if (nr == 0) { break; }
     setAddress(addr);
     setData(buf);
+    digitalWrite(RAM_WE, HIGH);
+    digitalWrite(OE, HIGH);
+    digitalWrite(RAM_CE, HIGH);
+    
     digitalWrite(RAM_CE, LOW);
     digitalWrite(OE, LOW);
     digitalWrite(RAM_WE, LOW);
@@ -235,7 +245,10 @@ void loadRAM() {
     digitalWrite(RAM_WE, HIGH);
     digitalWrite(OE, HIGH);
     digitalWrite(RAM_CE, HIGH);
+    Serial.print(addr, BIN); Serial.print(" : ");
+    Serial.println(buf, BIN);
     addr++;
+    
   }
 
   //Return pins to Z state
@@ -243,7 +256,7 @@ void loadRAM() {
   pinMode(RAM_CE, INPUT);
   
   //Enable control logic ROM
-  digitalWrite(ROM_OE, LOW);
+  digitalWrite(ROM_OE, CROM_STATE);
 
   oled.clear();
   oled.println("Program loaded!");
@@ -253,10 +266,24 @@ void loadRAM() {
   MODE = 2;
 }
 
+void probeRAM() {
+  //Clear OLED;
+  oled.clear();
+
+  //prepare ram for reading
+  pinMode(RAM_CE, OUTPUT);
+
+  //Display RAM contents to bus
+  digitalWrite(RAM_CE, HIGH);
+  digitalWrite(RAM_CE, LOW);
+  oled.println("Address displayed!");
+  oled.print("Press SELECT to exit!");
+  MODE = 2; 
+}
 void (*menu_functions[3][3])() = {
   {&inc_CurrentFile, &loadRAM, &get_filename},
   {&switchFreq, &runClock, &stepClock},
-  {&toggleCROM, &nullfunc, &nullfunc}
+  {&toggleCROM, &probeRAM, &nullfunc}
 };
 
 void halt() {
@@ -264,6 +291,7 @@ void halt() {
 }
 
 void setup() {
+  Serial.begin(57600);
   Wire.begin();
   Wire.setClock(400000L);
   oled.begin(&Adafruit128x32, I2C_ADDRESS);
@@ -271,6 +299,7 @@ void setup() {
   oled.setFont(Adafruit5x7);
   oled.setCursor(0, 0);
   oled.print("init...");
+  
 
   //Init SD
   PF.begin(&fs);
@@ -341,6 +370,8 @@ void loop() {
     case 2:
       if (buttonEdge(2)) {
         clockTimer.stop();
+        digitalWrite(RAM_CE, HIGH);
+        pinMode(RAM_CE, INPUT);
         digitalWrite(CLOCK, LOW);
         MODE = 0;
         MENU_CURSOR = 0;
