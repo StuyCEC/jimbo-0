@@ -12,14 +12,14 @@ A simple 8-bit minicomputer
 - 8-bit data width
 - 11-bit address bus (KiB available memory)
 - 16 instruction architecture
-- Output diplay that supports integers and floating point values
+- Output display that supports integers and floating point values
 - Bootloader that loads machine code from a micro-SD card
 
 ### Instruction Set
 ```
 0000: 0x00: MOV    (R1) (R2 or imm8)  	: R1 = R2 or imm8
 0001: 0x01: LDR    (R1) (MR or imm16) 	: R1 = *MR or *imm16
-0010: 0x02: STR    (R1) (MR or imm16)		: *MR or *imm16 = R1
+0010: 0x02: STR    (R1) (MR or imm16)	: *MR or *imm16 = R1
 0011: 0x03: ADD  F (R1) (R2 or imm8)   	: R1 += R2 or imm8
 0100: 0x04: ADC  F (R1) (R2 or imm8)   	: R1 += (R2 or imm8) + Carry
 0101: 0x05: SUB  F (R1) (R2 or imm8)   	: R1 -= R2 or imm8
@@ -34,11 +34,11 @@ A simple 8-bit minicomputer
 1110: 0x0E: MIL    (R1) (__ or imm8)   	: MR (LOWER 8 BITS) = R1 or imm8
 1111: 0x0F: MIH    (R1) (__ or imm8)   	: MR (HIGHER 2 BITS) = R1 or imm8
 
-* F: Instruction writes to the flags register
+* F: Flags register updated
 * imm16 is in the big-endian format
 ```
 
-### Insturction Breakdown
+### Instruction Breakdown
 ```
 XXXX-YYYY
 * X: Instruction Word
