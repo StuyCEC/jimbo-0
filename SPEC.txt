@@ -10,10 +10,6 @@ Registers:
 	* C Register - Can also represent an io device
 	* Flags Register
 	* Memory Register
-	
-	0b00: A Register
-	0b01: B Register
-	0b10: C Register
 
 Memory:
 	* 11-bit memory address width 
@@ -53,21 +49,21 @@ Instructions:
 		0xF:  imm8->C,    imm8, imm16->C, C->imm16, imm16
 		
 
-	0x00: MOV    (R1) (R2 or imm8)  	: R1 = R2 or imm8
-	0x01: LDR    (R1) (MR or imm16) 	: R1 = *MR or *imm16
-	0x02: STR    (R1) (MR or imm16)		: *MR or *imm16 = R1
-	0x03: ADD  F (R1) (R2 or imm8)   	: R1 += R2 or imm8
-	0x04: ADC  F (R1) (R2 or imm8)   	: R1 += (R2 or imm8) + Carry
-	0x05: SUB  F (R1) (R2 or imm8)   	: R1 -= R2 or imm8
-	0x06: SBB  F (R1) (R2 or imm8)  	: R1 -= (R2 or imm8) - Borrow
-	0x07: NAND F (R1) (R2 or imm8)   	: !(R1 & (R2 or imm8))
-	0x08: JMP         (MR or imm16)  	: PC = *MR or imm16
-	0x09: JNZ         (MR or imm16)  	: if (ZERO == 1): PC = *MR or imm16
-	0x0A: JNC 	  (MR or imm16)  	: if (CARRY == 1): PC = *MR or imm16
-	0x0B: OUT    (R1) (__ or imm8)  	: OUT << 8; OUT += R1 or imm8
-	0x0C: COT   				: OUT = 0x00
-	0x0D: HLT                       	: HALT CLOCK
-	0x0E: MIL    (R1) (__ or imm8)   	: MR (LOWER 8 BITS) = R1 or imm8
-	0x0F: MIH    (R1) (__ or imm8)   	: MR (HIGHER 2 BITS) = R1 or imm8
+	0000: 0x00: MOV    (R1) (R2 or imm8)  	: R1 = R2 or imm8
+	0001: 0x01: LDR    (R1) (MR or imm16) 	: R1 = *MR or *imm16
+	0010: 0x02: STR    (R1) (MR or imm16)		: *MR or *imm16 = R1
+	0011: 0x03: ADD  F (R1) (R2 or imm8)   	: R1 += R2 or imm8
+	0100: 0x04: ADC  F (R1) (R2 or imm8)   	: R1 += (R2 or imm8) + Carry
+	0101: 0x05: SUB  F (R1) (R2 or imm8)   	: R1 -= R2 or imm8
+	0110: 0x06: SBB  F (R1) (R2 or imm8)  	: R1 -= (R2 or imm8) - Borrow
+	0111: 0x07: NAND F (R1) (R2 or imm8)   	: !(R1 & (R2 or imm8))
+	1000: 0x08: JMP         (MR or imm16)  	: PC = *MR or imm16
+	1001: 0x09: JNZ         (MR or imm16)  	: if (ZERO == 1): PC = *MR or imm16
+	1010: 0x0A: JNC 	  (MR or imm16)  	: if (CARRY == 1): PC = *MR or imm16
+	1011: 0x0B: OUT    (R1) (__ or imm8)  	: OUT << 8; OUT += R1 or imm8
+	1100: 0x0C: COT   				: OUT = 0x00
+	1101: 0x0D: HLT                       	: HALT CLOCK
+	1110: 0x0E: MIL    (R1) (__ or imm8)   	: MR (LOWER 8 BITS) = R1 or imm8
+	1111: 0x0F: MIH    (R1) (__ or imm8)   	: MR (HIGHER 2 BITS) = R1 or imm8
 
 	* F: Instruction writes to the flags register

@@ -1,0 +1,100 @@
+#define SHIFT_DATA 2
+#define SHIFT_CLK 3
+#define SHIFT_LATCH 4
+#define EEPROM_D0 5
+#define EEPROM_D7 12
+#define WRITE_EN 13
+
+#define INVERTS   0b00100011111111111000111101111111
+#define A_IN      0b00000000000000000000000000000001 //INV 1
+#define A_OUT     0b00000000000000000000000000000010 //INV 2
+#define B_IN      0b00000000000000000000000000000100 //INV 3
+#define B_OUT     0b00000000000000000000000000001000 //INV 4
+#define C_IN      0b00000000000000000000000000010000 //INV 5
+#define C_OUT     0b00000000000000000000000000100000 //INV 6
+#define F_IN      0b00000000000000000000000001000000 //INV 7
+#define F_OUT     0b00000000000000000000000010000000
+#define ALU_A_IN  0b00000000000000000000000100000000 //INV 9
+#define ALU_B_IN  0b00000000000000000000001000000000 //INV 10
+#define ARI_OUT   0b00000000000000000000010000000000 //INV 11
+#define NAND_OUT  0b00000000000000000000100000000000 //INV 12
+#define CARRY_EN  0b00000000000000000001000000000000 
+#define SUB_EN    0b00000000000000000010000000000000
+#define PC_EN     0b00000000000000000100000000000000 
+#define PC_OUT    0b00000000000000001000000000000000 //INV 16
+#define PC_IN     0b00000000000000010000000000000000 //INV 17
+#define PC_RST    0b00000000000000100000000000000000 //INV 18
+#define RAM_WE    0b00000000000001000000000000000000 //INV 19
+#define RAM_CE    0b00000000000010000000000000000000 //INV 20
+#define MH_IN     0b00000000000100000000000000000000 //INV 21
+#define ML_IN     0b00000000001000000000000000000000 //INV 22
+#define M_OUT     0b00000000010000000000000000000000 //INV 23
+#define IR_IN     0b00000000100000000000000000000000 //INV 24
+#define NIL_W     0b00000001000000000000000000000000
+#define STPC_RST  0b00000010000000000000000000000000 //INV 26
+#define OUT_IN    0b00000100000000000000000000000000
+#define OUT_RST   0b00001000000000000000000000000000
+#define HLT       0b00010000000000000000000000000000 
+#define FETCH     0b00100000000000000000000000000000 
+
+void setAddress(int address, bool outputEnable) {
+  shiftOut(SHIFT_DATA, SHIFT_CLK, MSBFIRST, (address >> 8) | (outputEnable ? 0x00 : 0x80));
+  shiftOut(SHIFT_DATA, SHIFT_CLK, MSBFIRST, address);
+
+  digitalWrite(SHIFT_LATCH, LOW);
+  digitalWrite(SHIFT_LATCH, HIGH);
+  digitalWrite(SHIFT_LATCH, LOW);
+}
+
+byte readEEPROM(int address) {
+  for (int pin = EEPROM_D0; pin <= EEPROM_D7; pin += 1) {
+    pinMode(pin, INPUT);
+  }
+  setAddress(address, /*outputEnable*/ true);
+
+  byte data = 0;
+  for (int pin = EEPROM_D7; pin >= EEPROM_D0; pin -= 1) {
+    data = (data << 1) + digitalRead(pin);
+  }
+  return data;
+}
+
+
+void printBin(byte aByte) {
+  for (int8_t aBit = 7; aBit >= 0; aBit--)
+    Serial.write(bitRead(aByte, aBit) ? '1' : '0');
+}
+
+uint32_t fetchc[8] = {
+  PC_OUT|RAM_CE|IR_IN|FETCH, FETCH, PC_EN|FETCH, STPC_RST, 0, 0, 0, 0 
+};
+
+void setup() {
+  pinMode(SHIFT_DATA, OUTPUT);
+  pinMode(SHIFT_CLK, OUTPUT);
+  pinMode(SHIFT_LATCH, OUTPUT);
+  digitalWrite(WRITE_EN, HIGH);
+  pinMode(WRITE_EN, OUTPUT);
+  
+  Serial.begin(57600);
+
+  pinMode(SHIFT_DATA, OUTPUT);
+  pinMode(SHIFT_CLK, OUTPUT);
+  pinMode(SHIFT_LATCH, OUTPUT);
+  digitalWrite(WRITE_EN, HIGH);
+  pinMode(WRITE_EN, OUTPUT);
+  
+  Serial.begin(57600);
+  
+
+  for (unsigned int address = 0; address < 8192; address+= 1) {
+    Serial.print(address, HEX); Serial.print(" : ");
+    printBin(readEEPROM(address));
+    Serial.println();
+  }
+}
+
+
+void loop() {
+  
+}
