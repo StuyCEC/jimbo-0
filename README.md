@@ -29,7 +29,7 @@ A simple 8-bit minicomputer
 1001: 0x09: JNZ         (MR or imm16)  	: if (ZERO == 1): PC = *MR or imm16
 1010: 0x0A: JNC 	  (MR or imm16)  	: if (CARRY == 1): PC = *MR or imm16
 1011: 0x0B: OUT    (R1) (__ or imm8)  	: OUT << 8; OUT += R1 or imm8
-1100: 0x0C: COT   				: OUT = 0x00
+1100: 0x0C: COT   			: OUT = 0x00
 1101: 0x0D: HLT                       	: HALT CLOCK
 1110: 0x0E: MIL    (R1) (__ or imm8)   	: MR (LOWER 8 BITS) = R1 or imm8
 1111: 0x0F: MIH    (R1) (__ or imm8)   	: MR (HIGHER 2 BITS) = R1 or imm8
