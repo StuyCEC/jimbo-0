@@ -44,12 +44,12 @@ XXXX-YYYY
 * X: Instruction Word
 * Y: Register/Mode
 	Addr| R1R2 	|    R1    |   M->R1    |   R1->M    |    M     |
-	0x0:  A->A,      A,        M->A,        A->M,         M
-	0x1:  A->B,      B,        M->B,        B->M,         imm16
-	0x2:  A->C,      C,        M->C,        C->M
-	0x3:  B->A,      imm8,     imm16->A,    A->imm16
-	0x4:  B->B,                imm16->B,    B->imm16
-	0x5:  B->C                 imm16->C,    C->imm16
+	0x0:  A->A,          A,        M->A,        A->M,         M
+	0x1:  A->B,          B,        M->B,        B->M,         imm16
+	0x2:  A->C,          C,        M->C,        C->M
+	0x3:  B->A,          imm8,     imm16->A,    A->imm16
+	0x4:  B->B,                    imm16->B,    B->imm16
+	0x5:  B->C                     imm16->C,    C->imm16
 	0x6:  C->A
 	0x7:  C->B
 	0x8:  C->C
@@ -57,7 +57,7 @@ XXXX-YYYY
 	0xA:  imm8->B,
 	0xB:  imm8->C,
 	...
-	0xF:  imm8->C,   imm8,     imm16->C,    C->imm16,     imm16
+	0xF:  imm8->C,      imm8,     imm16->C,    C->imm16,     imm16
 
 * big-endian format followed
 ```
