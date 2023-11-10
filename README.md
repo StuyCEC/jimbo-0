@@ -10,7 +10,7 @@ A simple 8-bit minicomputer
 ## Machine Description
 ### Features
 - 8-bit data width
-- 11-bit address bus (KiB available memory)
+- 11-bit address bus (2KiB available memory)
 - 16 instruction architecture
 - Output display that supports integers and floating point values
 - Bootloader that loads machine code from a micro-SD card
