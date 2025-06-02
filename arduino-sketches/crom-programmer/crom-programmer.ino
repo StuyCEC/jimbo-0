@@ -8,37 +8,37 @@
 //XOR 0b00000011111111111000111101111111
 //01111111
 //10001111
-#define INVERTS   0b000011111111111000111101111111
-#define A_IN      0b000000000000000000000000000001 //INV 1
-#define A_OUT     0b000000000000000000000000000010 //INV 2
-#define B_IN      0b000000000000000000000000000100 //INV 3
-#define B_OUT     0b000000000000000000000000001000 //INV 4
-#define C_IN      0b000000000000000000000000010000 //INV 5
-#define C_OUT     0b000000000000000000000000100000 //INV 6
-#define F_IN      0b000000000000000000000001000000 //INV 7
-#define F_OUT     0b000000000000000000000010000000
-#define ALU_A_IN  0b000000000000000000000100000000 //INV 9
-#define ALU_B_IN  0b000000000000000000001000000000 //INV 10
-#define ARI_OUT   0b000000000000000000010000000000 //INV 11
-#define NAND_OUT  0b000000000000000000100000000000 //INV 12
-#define CARRY_EN  0b000000000000000001000000000000 
-#define SUB_EN    0b000000000000000010000000000000
-#define PC_EN     0b000000000000000100000000000000 
-#define PC_OUT    0b000000000000001000000000000000 //INV 16
-#define PC_IN     0b000000000000010000000000000000 //INV 17
-#define PC_RST    0b000000000000100000000000000000 //INV 18
-#define RAM_WE    0b000000000001000000000000000000 //INV 19
-#define RAM_CE    0b000000000010000000000000000000 //INV 20
-#define MH_IN     0b000000000100000000000000000000 //INV 21
-#define ML_IN     0b000000001000000000000000000000 //INV 22
-#define M_OUT     0b000000010000000000000000000000 //INV 23
-#define IR_IN     0b000000100000000000000000000000 //INV 24
-#define NIL_W     0b000001000000000000000000000000
-#define STPC_RST  0b000010000000000000000000000000 //INV 26
-#define OUT_IN    0b000100000000000000000000000000
-#define OUT_RST   0b001000000000000000000000000000
-#define HLT       0b010000000000000000000000000000 
-#define FETCH     0b100000000000000000000000000000 
+#define INVERTS   0b11000011111111111000111101111111
+#define A_IN      0b00000000000000000000000000000001 //INV 1
+#define A_OUT     0b00000000000000000000000000000010 //INV 2
+#define B_IN      0b00000000000000000000000000000100 //INV 3
+#define B_OUT     0b00000000000000000000000000001000 //INV 4
+#define C_IN      0b00000000000000000000000000010000 //INV 5
+#define C_OUT     0b00000000000000000000000000100000 //INV 6
+#define F_IN      0b00000000000000000000000001000000 //INV 7
+#define F_OUT     0b00000000000000000000000010000000
+#define ALU_A_IN  0b00000000000000000000000100000000 //INV 9
+#define ALU_B_IN  0b00000000000000000000001000000000 //INV 10
+#define ARI_OUT   0b00000000000000000000010000000000 //INV 11
+#define NAND_OUT  0b00000000000000000000100000000000 //INV 12
+#define CARRY_EN  0b00000000000000000001000000000000 
+#define SUB_EN    0b00000000000000000010000000000000
+#define PC_EN     0b00000000000000000100000000000000 
+#define PC_OUT    0b00000000000000001000000000000000 //INV 16
+#define PC_IN     0b00000000000000010000000000000000 //INV 17
+#define PC_RST    0b00000000000000100000000000000000 //INV 18
+#define RAM_WE    0b00000000000001000000000000000000 //INV 19
+#define RAM_CE    0b00000000000010000000000000000000 //INV 20
+#define MH_IN     0b00000000000100000000000000000000 //INV 21
+#define ML_IN     0b00000000001000000000000000000000 //INV 22
+#define M_OUT     0b00000000010000000000000000000000 //INV 23
+#define IR_IN     0b00000000100000000000000000000000 //INV 24
+#define NIL_W     0b00000001000000000000000000000000
+#define STPC_RST  0b00000010000000000000000000000000 //INV 26
+#define OUT_IN    0b00000100000000000000000000000000
+#define OUT_RST   0b00001000000000000000000000000000
+#define HLT       0b00010000000000000000000000000000 
+#define FETCH     0b00100000000000000000000000000000 
 #define ROMSEL 3
 
 uint32_t fetchc[8] = {
@@ -68,7 +68,7 @@ uint32_t UCODE_TEMPLATE_Z0[16][8] = {
 
 uint32_t UCODE_TEMPLATE[16][8] = {
   {PC_OUT|RAM_CE|C_IN, PC_EN, STPC_RST|FETCH,                                                                 0, 0, 0, 0, 0}, //0x00 MOV R1R2
-  {PC_OUT|RAM_CE|MH_IN, PC_EN, PC_O , M_OUT|RAM_CE|C_IN, PC_EN, STPC_RST|FETCH,                          0, 0},//0x01 LDR M->R1
+  {PC_OUT|RAM_CE|MH_IN, PC_EN, PC_OUT|RAM_CE|MH_IN, M_OUT|RAM_CE|C_IN, PC_EN, STPC_RST|FETCH,                          0, 0},//0x01 LDR M->R1
   {PC_OUT|RAM_CE|MH_IN, PC_EN, PC_OUT|RAM_CE|ML_IN, M_OUT|RAM_CE, M_OUT|RAM_CE|RAM_WE|C_OUT, PC_EN, STPC_RST|FETCH,       0}, //0x02 STR R1->M                             
   {PC_OUT|RAM_CE|ALU_B_IN, ALU_A_IN|C_OUT, ARI_OUT|F_IN|C_IN, PC_EN, STPC_RST|FETCH,                                0, 0, 0}, //0x03 ADD R1R2
   {PC_OUT|RAM_CE|ALU_B_IN, ALU_A_IN|C_OUT, ARI_OUT|CARRY_EN|C_IN, F_IN|ARI_OUT|CARRY_EN, PC_EN,  STPC_RST|FETCH,       0, 0}, //0x04 ADC R1R2
@@ -93,7 +93,7 @@ uint32_t set_invert(uint32_t ucode[16][8]) {
   }
 }
 
-void setAddress(int address, bool outputEnable) {
+void setAddress(uint32_t address, bool outputEnable) {
   shiftOut(SHIFT_DATA, SHIFT_CLK, MSBFIRST, (address >> 8) | (outputEnable ? 0x00 : 0x80));
   shiftOut(SHIFT_DATA, SHIFT_CLK, MSBFIRST, address);
 
@@ -103,7 +103,7 @@ void setAddress(int address, bool outputEnable) {
 }
 
 
-byte readEEPROM(int address) {
+byte readEEPROM(uint32_t address) {
   for (int pin = EEPROM_D0; pin <= EEPROM_D7; pin += 1) {
     pinMode(pin, INPUT);
   }
@@ -151,7 +151,7 @@ void writeEEPROM(int address, uint32_t longdata) {
     data = data >> 1;
   }
   digitalWrite(WRITE_EN, LOW);
-  delayMicroseconds(1);
+  delayMicroseconds(5);
   digitalWrite(WRITE_EN, HIGH);
   delay(10);
 }
@@ -338,11 +338,11 @@ void setup() {
             break;
           case 0x09: 
             writeEEPROM((address & 0b1111111111000) + 1, (ALU_A_IN|A_OUT)^INVERTS); 
-            writeEEPROM((address & 0b1111111111000) + 2, (ALU_A_IN|A_IN)^INVERTS);
+            writeEEPROM((address & 0b1111111111000) + 2, (ARI_OUT|F_IN|A_IN)^INVERTS);
             break;
           case 0x0A:
             writeEEPROM((address & 0b1111111111000) + 1, (ALU_A_IN|B_OUT)^INVERTS); 
-            writeEEPROM((address & 0b1111111111000) + 2, (ALU_A_IN|B_IN)^INVERTS);
+            writeEEPROM((address & 0b1111111111000) + 2, (ARI_OUT|F_IN|B_IN)^INVERTS);
             break;
         }
         break;
@@ -555,7 +555,7 @@ void setup() {
             break;
           case 0x0A:
             writeEEPROM((address & 0b1111111111000) + 1, (ALU_A_IN|B_OUT)^INVERTS); 
-            writeEEPROM((address & 0b1111111111000) + 2, (ALU_A_IN|CARRY_EN|B_IN)^INVERTS);
+            writeEEPROM((address & 0b1111111111000) + 2, (ARI_OUT|CARRY_EN|B_IN)^INVERTS);
             break;
         }
         break;
@@ -618,11 +618,11 @@ void setup() {
             break;
           case 0x09: 
             writeEEPROM((address & 0b1111111111000) + 1, (ALU_A_IN|A_OUT)^INVERTS); 
-            writeEEPROM((address & 0b1111111111000) + 2, (ALU_A_IN|A_IN)^INVERTS);
+            writeEEPROM((address & 0b1111111111000) + 2, (ARI_OUT|F_IN|A_IN)^INVERTS);
             break;
           case 0x0A:
             writeEEPROM((address & 0b1111111111000) + 1, (ALU_A_IN|B_OUT)^INVERTS); 
-            writeEEPROM((address & 0b1111111111000) + 2, (ALU_A_IN|B_IN)^INVERTS);
+            writeEEPROM((address & 0b1111111111000) + 2, (ARI_OUT|F_IN|B_IN)^INVERTS);
             break;
         }
         break;
@@ -714,24 +714,29 @@ void setup() {
         break;
     }
 
-    switch (flag) {
-      //Z0F0
-      case 0x01:
-        writeEEPROM(((address & 0b1100000000000) | 0b0010010000000) + 1, (STPC_RST|FETCH)^INVERTS);
-        writeEEPROM(((address & 0b1100000000000) | 0b0010010000000) + 4, (STPC_RST|FETCH)^INVERTS);
-        break;
-      //Z0F1
-      case 0x02:
-        writeEEPROM(((address & 0b1100000000000) | 0b0010100000000) + 1, (STPC_RST|FETCH)^INVERTS);
-        writeEEPROM(((address & 0b1100000000000) | 0b0010100000000) + 4, (STPC_RST|FETCH)^INVERTS);
-        break;
-      //Z1F0
-      case 0x03:
-        writeEEPROM(((address & 0b1100000000000) | 0b0010010000000) + 1, (STPC_RST|FETCH)^INVERTS);
-        writeEEPROM(((address & 0b1100000000000) | 0b0010010000000) + 4, (STPC_RST|FETCH)^INVERTS);
-        writeEEPROM(((address & 0b1100000000000) | 0b0010100000000) + 1, (STPC_RST|FETCH)^INVERTS);
-        writeEEPROM(((address & 0b1100000000000) | 0b0010100000000) + 4, (STPC_RST|FETCH)^INVERTS);
-        break;
+    if ((x == 0x9) || (x == 0xA)) {
+      switch (flag) {
+        char buff [160];
+        //Z0F0
+        case 0x01:
+          sprintf(buff, "%x | %x\n", address, x);
+          Serial.print(buff);
+          writeEEPROM((address & 0b1111111111000) + 1, (STPC_RST|FETCH)^INVERTS);
+          writeEEPROM((address & 0b1111111111000) + 4, (STPC_RST|FETCH)^INVERTS);
+          break;
+        //Z0F1
+        case 0x02:
+          writeEEPROM((address & 0b1111111111000) + 1, (STPC_RST|FETCH)^INVERTS);
+          writeEEPROM((address & 0b1111111111000)+ 4, (STPC_RST|FETCH)^INVERTS);
+          break;
+        //Z1F0
+        case 0x03:
+          writeEEPROM((address & 0b1111111111000) + 1, (STPC_RST|FETCH)^INVERTS);
+          writeEEPROM((address & 0b1111111111000) + 4, (STPC_RST|FETCH)^INVERTS);
+          writeEEPROM((address & 0b1111111111000) + 1, (STPC_RST|FETCH)^INVERTS);
+          writeEEPROM((address & 0b1111111111000) + 4, (STPC_RST|FETCH)^INVERTS);
+          break;
+      }
     }
     
     if (address % 256 == 0) {
@@ -747,6 +752,8 @@ void setup() {
   // Read and print out the contents of the EERPROM
   Serial.println("Reading EEPROM");
   printContents(0, 8192);
+  Serial.println("FINAL");
+  printContents(3711, 3712);
 }
 
 void loop() {

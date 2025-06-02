@@ -1,4 +1,5 @@
 #include "jimbo_ruleset.asm"
-mov 0x00, a
+mov 0xaa, a
 mov ab
+hlt
 
